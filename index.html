@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>To-do List</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My To-do list</h1>
+
+    <div>
+      <label for="item">What do I need to do?</label>
+      <input type="text" name="item" id="item" placeholder="Item">
+      <button>Add</button>
+    </div>
+      
+      <ul id="myUL">
+        <li >Buy bread</li>
+        <li>Send an invoice</li>
+        <li>Meet mum</li>
+        <li>Go to the gym</li>
+        <li>Read a book</li>
+        <li>Clean the house</li>
+        <li>Buy a present for my brother</li>
+      </ul>
+
+    <script>
+        var ul = document.querySelector('ul');
+        var input = document.querySelector('input');
+        var button = document.querySelector('button');
+        
+        
+        button.onclick = function() {
+            var MyInput = input.value;
+            input.value = '';
+           
+            var listUl = document.getElementById('myUL');
+            var listLi = document.createElement('li');
+            var listSpan = document.createElement('span');
+            var listBtn = document.createElement('button');
+            
+            listUl.appendChild(listBtn);
+            listLi.appendChild(listSpan);
+            listSpan.textContent = MyInput;
+            listLi.appendChild(listBtn);
+            listBtn.textContent = 'Delete';
+            ul.appendChild(listLi);
+            
+            
+            listBtn.onclick = function(e) {
+                ul.removeChild(listLi);
+            }
+                input.focus = ' ';
+            }
+    </script>
+  </body>
+</html>
