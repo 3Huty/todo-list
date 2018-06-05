@@ -1,0 +1,33 @@
+  
+        button.onclick = function() {
+            var MyInput = input.value;
+            input.value = '';
+           
+            var listUl = document.getElementById('myUL');
+            var listLi = document.createElement('li');
+            var listSpan = document.createElement('span');
+            var listBtn = document.createElement('button');
+            
+            listUl.appendChild(listBtn);
+            listLi.appendChild(listSpan);
+            listSpan.textContent = MyInput;
+            listLi.appendChild(listBtn);
+            listBtn.textContent = 'Delete';
+            ul.appendChild(listLi);
+            
+                        
+            listBtn.onclick = function(e) {
+                ul.removeChild(listLi);
+            }
+                input.focus = ' ';
+            
+            if(MyInput ==='') {
+                alert('Write your task!');
+            } else {
+                document.getElementById('myUl').appendChild(li);
+            }
+            
+            }
+    </script>
+  </body>
+</html>
