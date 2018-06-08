@@ -27,45 +27,8 @@
       <ul id="myUL">
         <li >Buy bread</li>
         <li>Send an invoice</li>
-        <li>Meet Henry</li>
-        <li>Go to the gym</li>
-        <li>Read a book</li>
-        <li>Clean the house</li>
-        <li>Buy a present for my brother</li>
       </ul>
 
-    <script>
-        
-        var ul = document.querySelector('ul');
-        var input = document.querySelector('input');
-        var button = document.querySelector('button');
-        
-        var initialList = document.getElementsByTagName('li');
-        var i;
-        
-        for (i = 0; i < initialList.length; i++) {
-         var span = document.createElement('button');
-         var txt = document.createTextNode('delete');
-         span.className = 'delete';
-         span.appendChild(txt);
-         initialList[i].appendChild(span);
-        
-         span.onclick = function(e){
-         initialList[i].removeChild(initialList);
-         }
-        }
-        
-        for (i = 0; i < initialList.length; i++) {
-         var span = document.createElement('button');
-         var txt = document.createTextNode('edit');
-         span.className = 'edit';
-         span.appendChild(txt);
-         initialList[i].appendChild(span);
-        }
-            
-        
-        
-    
-    </script>
+    <script src="main.js"></script>  
   </body>
 </html>
