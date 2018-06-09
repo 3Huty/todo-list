@@ -3,30 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>To-do List</title>
-    <style>
-      li {
-        margin-bottom: 10px;
-      }
-      li button {
-        font-size: 8px;
-        margin-left: 20px;
-        color: #666;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
+  
   <body>
 
     <h1>My To-do list</h1>
 
-    <div>
+    <div id="editor" class="new" class="edit">
       <label for="item">What do I need to do?</label>
-      <input type="text" name="item" id="item" placeholder="Item">
+      <input type="textArea" name="item" id="item" placeholder="Item">
+      
       <button>Add</button>
+      <button id="newbtn">New</button>
+      <button id="savebtn">Save</button>
+      <button id="deletebtn">Delete</button>
+      <button id="donebtn">Done</button>
     </div>
       
-      <ul id="myUL">
-        <li >Buy bread</li>
-        <li>Send an invoice</li>
+      <ul id="todolist">
+        <li data-status="pending">Buy bread</li>
+        <li data-status="finished">Send an invoice</li>
       </ul>
 
     <script src="main.js"></script>  

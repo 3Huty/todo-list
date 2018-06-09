@@ -1,0 +1,16 @@
+li {
+        margin-bottom: 10px;
+      }
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+
+div .new:deletbtn {
+    visibility: hidden;
+}
+
+div .edit:deletebtn {
+    visibility: visible;
+}
