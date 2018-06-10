@@ -12,7 +12,8 @@
          span.appendChild(txt);
          initialList[i].appendChild(span);
         
-        }        
+        
+        }
         
         for (i = 0; i < initialList.length; i++) {
          var span = document.createElement('button');

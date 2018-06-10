@@ -47,27 +47,44 @@
 			console.log("Wiem ze strona zaladowala sie");
 			// zacznij wykonywać kod JS dopiero gdy cała strona się wczyta razem ze wszyskimi grafikami oraz stylami i innymi JSami
 			
-            
-            // tu zacznij dodawać kod javascriptowy		
 		
-        var ul = document.querySelector('ul');
-        var textArea = document.querySelector('textarea');
-        var button = document.querySelector('button');
-        
-        button.onclick = function() {
-            var MyTextArea = textArea.value;
-            textArea.value = '';
-            
-                        
-                textArea.focus = '';
-            }
-	
+			// tu zacznij dodawać kod javascriptowy
 			
+                    
+            
  		}
 		
 		// tutaj dodaj funkcję która podepniesz do przycisku "New"
 		// naciśnięcie na New ma wyczyścić pole tekstowe i upewnić się że przycik "Delete" nie jest widoczny
 		// bo to w końcu nowy wpis który jeszcze nie został dodany
+		function newTodo() {
+			var editor = document.getElementById("editor");		// lub w tym przypadku document.getElementById("editor")
+			// edytor ma być trybie nowego wpisu, więc przycisk Delete ma być niewidoczny
+			// poniższy instrukcja odpodwiada napisaniu <div id="editor" class="new"> w HTMLu
+			// atrybut "className" w JS odpowiada za ustawienie klasy stylu na elemencie
+			editor.className = "new";
+			
+			var textArea = document.getElementById("item");		// lub w tym przypadku document.getElementById("item")
+			textArea.value = "";
+			textArea.focus();									// kursor ma od razu wskoczyć do pola edycyjnego
+		}
+        
+        function saveTodo() {
+            var listUl = document.getElementById("#todolist");
+            var listLi = document.createElement("li");
+            var listSpan = document.createElement("span");
+            var button = document.createElement("#savebtn");
+            
+            listUl.appendChild(button);
+            listLi.appendChild(listSpan);
+            listSpan.textContent = TextArea;
+            listLi.appendChild(button);
+            button.textContent = "Save";
+            ul.appendChild(listLi);
+            
+            textArea.focus();	
+            
+        }
 	</script>
   </head>
   
@@ -85,7 +102,7 @@
       <textarea name="item" id="item" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
       
       <div>
-		  <button id="newbtn">New</button>
+		  <button id="newbtn" onclick="newTodo()">New</button>
 		  <button id="savebtn">Save</button>
 		  <button id="deletebtn">Delete</button>
 	  </div>
