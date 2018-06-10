@@ -3,29 +3,96 @@
   <head>
     <meta charset="utf-8">
     <title>To-do List</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+	
+	<style type="text/css">
+		ul{
+			float: left;
+			width: 15em;
+			border: solid 1px black;
+		}
+		
+		li {
+			margin-bottom: 10px;
+			color: red;
+		}
+		
+		li:hover {
+			background-color: black;
+		}
+		 
+		li button {
+			font-size: 8px;
+			margin-left: 20px;
+			color: #666;
+		}
+
+		#editor {
+			float: left;
+			width: 25em;
+			margin-left: 3em;
+		}
+		
+		#editor.new #deletebtn {
+			visibility: hidden;
+		}
+
+		#editor.edit #deletebtn {
+			visibility: visible;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		window.onload = function(){
+			console.log("Wiem ze strona zaladowala sie");
+			// zacznij wykonywać kod JS dopiero gdy cała strona się wczyta razem ze wszyskimi grafikami oraz stylami i innymi JSami
+			
+            
+            // tu zacznij dodawać kod javascriptowy		
+		
+        var ul = document.querySelector('ul');
+        var textArea = document.querySelector('textarea');
+        var button = document.querySelector('button');
+        
+        button.onclick = function() {
+            var MyTextArea = textArea.value;
+            textArea.value = '';
+            
+                        
+                textArea.focus = '';
+            }
+	
+			
+ 		}
+		
+		// tutaj dodaj funkcję która podepniesz do przycisku "New"
+		// naciśnięcie na New ma wyczyścić pole tekstowe i upewnić się że przycik "Delete" nie jest widoczny
+		// bo to w końcu nowy wpis który jeszcze nie został dodany
+	</script>
   </head>
   
   <body>
 
     <h1>My To-do list</h1>
 
-    <div id="editor" class="new" class="edit">
+	<ul id="todolist">
+		<li data-status="pending">Buy bread</li>
+		<li data-status="finished">Send an invoice</li>
+     </ul>
+	 
+    <div id="editor" class="new">
       <label for="item">What do I need to do?</label>
-      <input type="textArea" name="item" id="item" placeholder="Item">
+      <textarea name="item" id="item" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
       
-      <button>Add</button>
-      <button id="newbtn">New</button>
-      <button id="savebtn">Save</button>
-      <button id="deletebtn">Delete</button>
-      <button id="donebtn">Done</button>
+      <div>
+		  <button id="newbtn">New</button>
+		  <button id="savebtn">Save</button>
+		  <button id="deletebtn">Delete</button>
+	  </div>
     </div>
       
-      <ul id="todolist">
-        <li data-status="pending">Buy bread</li>
-        <li data-status="finished">Send an invoice</li>
-      </ul>
 
-    <script src="main.js"></script>  
+
+    <!--<script src="main.js"></script>-->  
   </body>
 </html>
