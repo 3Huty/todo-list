@@ -136,6 +136,7 @@
             selectedToDo = undefined;
         
         
+        // Wyczysczenie listy przyciskiem ClearAll
         function clearToDo() {
             var emptyList = document.getElementById("todolist"); 
              if (documement.getElementById("clearbtn").checked) {
@@ -146,7 +147,7 @@
         
         }
         
-        
+        // localStorage z aktualnymi zadaniami
       var currentList = document.getElementById("todolist");
       localStorage.setItem("myElement", JSON.stringify(currentList));
 
