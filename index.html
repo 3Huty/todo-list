@@ -43,73 +43,146 @@
 	</style>
 	
 	<script type="text/javascript">
+		// będziemy tu trzymać wybrany ToDo, czyli ten na który klinięto i możemy do edytować
+		// na początku powinien mieć wartość undefined
+		var selectedToDo;
+		
+		
 		window.onload = function(){
 			console.log("Wiem ze strona zaladowala sie");
+			console.log("selectedToDo: " + selectedToDo);
 			// zacznij wykonywać kod JS dopiero gdy cała strona się wczyta razem ze wszyskimi grafikami oraz stylami i innymi JSami
 			
 		
 			// tu zacznij dodawać kod javascriptowy
-			
-                    
-            
+			document.getElementById("todolist").onclick = loadToDo;
+			document.getElementById("newbtn").onclick = newToDo;
+			document.getElementById("savebtn").onclick = saveToDo;	
+            document.getElementById("clearbtn").onclick = clearToDo;
  		}
 		
+		
+		// ustawiamy edytor w odpowiedni trybie
+		// new - wprowadzamy treść nowego zadania
+		//		przycisk Delete nie jest widoczny
+		//
+		// edit - modyfikujemy treść wybranego zadania
+		//		jest widoczny przycisk Delete
+		function changeEditorMode(mode) {
+			var editor = document.getElementById("editor");
+			var textArea = document.getElementById("item");
+			
+			if (mode == "new") {
+				editor.className = "new";
+				textArea.value = "";
+			}
+			
+			if (mode == "edit") {
+				editor.className = "edit";
+			}
+			
+			textArea.focus();									// kursor ma od razu wskoczyć do pola edycyjnego
+		}
+		
+		
+               
 		// tutaj dodaj funkcję która podepniesz do przycisku "New"
 		// naciśnięcie na New ma wyczyścić pole tekstowe i upewnić się że przycik "Delete" nie jest widoczny
 		// bo to w końcu nowy wpis który jeszcze nie został dodany
-		function newTodo() {
-			var editor = document.getElementById("editor");		// lub w tym przypadku document.getElementById("editor")
-			// edytor ma być trybie nowego wpisu, więc przycisk Delete ma być niewidoczny
-			// poniższy instrukcja odpodwiada napisaniu <div id="editor" class="new"> w HTMLu
-			// atrybut "className" w JS odpowiada za ustawienie klasy stylu na elemencie
-			editor.className = "new";
+		function newToDo() {
+			changeEditorMode("new");
 			
-			var textArea = document.getElementById("item");		// lub w tym przypadku document.getElementById("item")
-			textArea.value = "";
-			textArea.focus();									// kursor ma od razu wskoczyć do pola edycyjnego
+			// jako że przygotowaliśmy się do edycji nowego wpisu, to nie interesuje nas czy wcześniej jakiś wybraliśmy
+			selectedToDo = undefined;
+            
+            
 		}
+		
+		
+		// wywolane gdy klikniemy na liste. Dzięki temu mozemy sprawdzić który element listy był klinięty
+		// a przez to pobrać treść ToDosa
+		function loadToDo(event){
+			console.log("kliknieto w liste");
+			console.log("event.target: " + event.target.tagName);
+			console.log("event.target.value: " + event.target.innerHTML);
+			
+			changeEditorMode("edit");
+			
+			document.getElementById("item").value = event.target.innerHTML;
+			document.getElementById("editor").className = "edit";
+			
+			// zapamiętajmy który wpis wybraliśmy
+			selectedToDo = event.target;
         
-        function saveTodo() {
-            var listUl = document.getElementById("#todolist");
-            var listLi = document.createElement("li");
-            var listSpan = document.createElement("span");
-            var button = document.createElement("#savebtn");
+        
+        }
             
-            listUl.appendChild(button);
-            listLi.appendChild(listSpan);
-            listSpan.textContent = TextArea;
-            listLi.appendChild(button);
-            button.textContent = "Save";
-            ul.appendChild(listLi);
-            
-            textArea.focus();	
+  
+		function saveToDo() {
+			// bedzie potrzebny zeby pobrać treść todo do dodania
+			var textArea = document.querySelector("#item");
+			
+			// nowy ToDo w którym zapiszemy treść zadania
+			var newTODO = document.createElement("li");
+			newTODO.innerHTML = textArea.value;
+			
+			// trzeba podpiąć tego nowego ToDosa do listy żeby pojawił się na stronie
+			var todos = document.getElementById("todolist");
+			todos.appendChild(newTODO);
+           
+        }		
+			// a to po to żebyśmy mieli edytor gotowy do wpisania treśći kolejnego nowego ToDosa
+			changeEditorMode("new");
+            selectedToDo = undefined;
+        
+        
+        function clearToDo() {
+            var emptyList = document.getElementById("todolist"); 
+             if (documement.getElementById("clearbtn").checked) {
+                emptyList = emptyList.clear;     
             
         }
+                emptyList.style.visibility = "hidden";
+        
+        }
+        
+        
+      var currentList = document.getElementById("todolist");
+      localStorage.setItem("myElement", JSON.stringify(currentList));
+
+      var retrievedObject = localStorage.getItem("myElement");
+      console.log(JSON.parse(retrievedObject));  
+     
+    
+        
 	</script>
   </head>
   
   <body>
 
     <h1>My To-do list</h1>
-
+      
+      <div>
+      <button id="clearbtn">Clear All</button>
+      </div>
+      
 	<ul id="todolist">
 		<li data-status="pending">Buy bread</li>
 		<li data-status="finished">Send an invoice</li>
      </ul>
-	 
+      
     <div id="editor" class="new">
       <label for="item">What do I need to do?</label>
-      <textarea name="item" id="item" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
+      <textarea name="item" id="item" placeholder="Write what you need to do" cols="30" rows="3"></textarea>
       
       <div>
-		  <button id="newbtn" onclick="newTodo()">New</button>
-		  <button id="savebtn">Save</button>
+		  <button id="newbtn">New</button>
+          <button id="savebtn">Save</button>
 		  <button id="deletebtn">Delete</button>
 	  </div>
     </div>
       
-
-
+          
     <!--<script src="main.js"></script>-->  
   </body>
 </html>
