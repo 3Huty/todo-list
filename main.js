@@ -112,20 +112,20 @@
 				if (document.getElementById("finishedBox").checked) {
 					newTODO.dataset.status = "finished";			
 				} else {
-					newTODO.dataset.status = "unfinished";			
+                    newTODO.dataset.status = "unfinished";			
 				}
 				
 				var todos = document.getElementById("todolist");
 				todos.appendChild(newTODO);
 				
 				changeEditorMode("new");
-			} else {
+            } else {
 				selectedToDo.innerHTML = textArea.value;
 				
 				if (document.getElementById("finishedBox").checked) {
-					selectedToDo.dataset.status = "finished";			
-				} else {
-					selectedToDo.dataset.status = "unfinished";			
+					selectedToDo.dataset.status = "finished";
+                } else {
+                    selectedToDo.dataset.status = "unfinished";			
 				}
 				
 				selectedToDo = undefined;					
