@@ -1,16 +1,54 @@
-li {
-        margin-bottom: 10px;
-      }
-      li button {
-        font-size: 8px;
-        margin-left: 20px;
-        color: #666;
-      }
+        ul{
+			float: left;
+			width: 15em;
+			border: solid 1px black;
+		}
+		
+		li {
+			margin-bottom: 10px;
+			color: red;
+		}
+		
+		li:hover {
+			background-color: black;
+		}
+		 
+		li button {
+			font-size: 8px;
+			margin-left: 20px;
+			color: #666;
+		}
 
-div .new:deletbtn {
-    visibility: hidden;
-}
+		#editor {
+			float: left;
+			width: 25em;
+			margin-left: 3em;
+		}
+		
+		#editor.new #deletebtn {
+			visibility: hidden;
+		}
 
-div .edit:deletebtn {
-    visibility: visible;
-}
+		#editor.edit #deletebtn {
+			visibility: visible;
+		}
+        
+        #editor.alert {
+            color: red;
+        }
+		
+		
+		#todolist li[data-status="finished"] {
+			background-color: green;
+			color: black;
+		}
+		
+		
+		#todolist.all li[data-status="unfinished"] {
+			display: block;
+		}
+		
+		
+		#todolist.finished li[data-status="unfinished"] {
+			display: none;
+		}

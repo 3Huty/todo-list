@@ -3,256 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>To-do List</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-	
-	<style type="text/css">
-		ul{
-			float: left;
-			width: 15em;
-			border: solid 1px black;
-		}
-		
-		li {
-			margin-bottom: 10px;
-			color: red;
-		}
-		
-		li:hover {
-			background-color: black;
-		}
-		 
-		li button {
-			font-size: 8px;
-			margin-left: 20px;
-			color: #666;
-		}
-
-		#editor {
-			float: left;
-			width: 25em;
-			margin-left: 3em;
-		}
-		
-		#editor.new #deletebtn {
-			visibility: hidden;
-		}
-
-		#editor.edit #deletebtn {
-			visibility: visible;
-		}
-        
-        #editor.alert {
-            color: red;
-        }
-        
-	</style>
-	
-	<script type="text/javascript">
-		// będziemy tu trzymać wybrany ToDo, czyli ten na który klinięto i możemy do edytować
-		// na początku powinien mieć wartość undefined
-		var selectedToDo;
-		
-		
-		window.onload = function() {
-			console.log("Wiem ze strona zaladowala sie");
-			console.log("selectedToDo: " + selectedToDo);
-			// zacznij wykonywać kod JS dopiero gdy cała strona się wczyta razem ze wszyskimi grafikami oraz stylami i innymi JSami
-			
-		
-			// tu zacznij dodawać kod javascriptowy
-			document.getElementById("todolist").onclick = loadToDo;
-			document.getElementById("newbtn").onclick = newToDo;
-			document.getElementById("savebtn").onclick = saveToDo;
-			document.getElementById("cancelbtn").onclick = closeEditor;
-			document.getElementById("deletebtn").onclick = deleteToDo;
-			document.getElementById("clearbtn").onclick = removeTasksLonger;
- 		}
-		
-		
-		
-		// ustawiamy edytor w odpowiedni trybie
-		// new - wprowadzamy treść nowego zadania
-		//		przycisk Delete nie jest widoczny
-		//
-		// edit - modyfikujemy treść wybranego zadania
-		//		jest widoczny przycisk Delete
-		function changeEditorMode(mode) {
-			var editor = document.getElementById("editor");
-			var textArea = document.getElementById("item");
-			
-			if (mode == "new") {
-				editor.className = "new";
-				textArea.value = "";
-			}
-			
-			if (mode == "edit") {
-				editor.className = "edit";
-			}
-			
-			textArea.focus();									// kursor ma od razu wskoczyć do pola edycyjnego
-		}
-		
-		
-		
-		// ta funkcja chowa edytor gdy już nie jest nam potrzebny
-		function closeEditor() {
-			selectedToDo = undefined;							// tego już nie potrzebujemy niezależnie czy jest tam obiekt czy jest pusty
-			
-			var editor = document.getElementById("editor");
-			editor.style.visibility = "hidden";					// ma być niewidoczny
-			
-			changeEditorMode("new");							// zawsze gdy chowamy edytor to wprowadzamy go w tryb "new" żeby nie było potem domysłów
-			
-			document.getElementById("cancelbtn").focus();		// a to tak żeby lepiej się obsługiwało z poziomu klawiatury // to znaczy co??
-		}
-		
-		
-		
-		// tutaj dodaj funkcję która podepniesz do przycisku "New"
-		// naciśnięcie na New ma wyczyścić pole tekstowe i upewnić się że przycik "Delete" nie jest widoczny
-		// bo to w końcu nowy wpis który jeszcze nie został dodany
-		function newToDo() {
-			// jako że przygotowaliśmy się do edycji nowego wpisu, to nie interesuje nas czy wcześniej jakiś wybraliśmy
-			selectedToDo = undefined;
-			
-			document.getElementById("editor").style.visibility = "visible";		// upewniamy się że edytor jest widoczny
-			changeEditorMode("new");			// edytor będzie miał wygląd dostosowany do tworzenia nowego zadania
-		}
-		// wywolane gdy klikniemy na liste. Dzięki temu mozemy sprawdzić który element listy był klinięty
-		// a przez to pobrać treść ToDosa
-		
-		
-		// wywolane gdy klikniemy na liste. Dzięki temu mozemy sprawdzić który element listy był klinięty
-		// a przez to pobrać treść ToDosa
-		function loadToDo(event) {
-			console.log("kliknieto w liste");
-			console.log("event.target: " + event.target.tagName);
-			console.log("event.target.value: " + event.target.innerHTML);
-			
-			document.getElementById("editor").style.visibility = "visible";		// trzeba pokazać edytor bo prawdopodobnie jest ukryty
-			
-			changeEditorMode("edit");											// dostosować jego wygląd do trybu edycji istniejącego wpisu
-			
-			document.getElementById("item").value = event.target.innerHTML;
-			
-			// zapamiętajmy który wpis(zadanie) wybraliśmy
-			selectedToDo = event.target;
-		}
-		
-		
-		function saveToDo() {
-			// bedzie potrzebny zeby pobrać treść todo do dodania
-			var textArea = document.querySelector("#item");
-			
-			if (textArea.value.length == 0) {
-                var alert = document.getElementById("editor");
-                alert.className = "alert"; 
-                return;		// ponieważ nie chce by pozostałe instrukcje były wykonane gdy nie ustawiono treści zadania
-			}
-			
-			if (selectedToDo == undefined) {
-				// to jest nowe zadanie więc trzeba je dodać do listy
-				var newTODO = document.createElement("li");
-				newTODO.innerHTML = textArea.value;
-				
-				// trzeba podpiąć tego nowego ToDosa do listy żeby pojawił się na stronie
-				var todos = document.getElementById("todolist");
-				todos.appendChild(newTODO);
-				
-				// a to po to żebyśmy mieli edytor gotowy do wpisania treśći kolejnego nowego ToDosa
-				changeEditorMode("new");
-			} else {
-				// skoro w selectedToDo jest jakiś obiekt to znaczy że jest to zadanie w które kliknęliśmy
-				// zatem trzeba zmodyfikować treść istniejącego zadaia
-				selectedToDo.innerHTML = textArea.value;
-				
-				selectedToDo = undefined;					// juź nie potrzebuję bo zaraz edytor przejdzie w tryb nowego zadania // a co jeżeli go nie będzie????
-				
-				changeEditorMode("new");					// edytor będzie w trybie nowego zadania więc przycisk Delete nie będzie widoczny
-			}
-			
-			
-			                                                 // usunęłam closeEditor();
-		}
-		
-		
-		
-		// usuwa z listy zadanie które wybraliśmy
-		function deleteToDo() {
-			selectedToDo.remove();		// usuń zadanie które wybraliśmy
-			
-            changeEditorMode("new");	// dodałam
-		                               // usunęłam closeEditor();
-		}
-		
-		
-		
-		// usuwa z listy zadań wszystie zadania
-		function removeTasks() {
-			if (selectedToDo != undefined) {
-				// to znaczy że kliknęliśmy wcześniej na któreś zadanie
-				// i znajduje się ono w edytorze(jego treść konkretnie)
-				// zatem schowajmy edytor bo to zadanie i tak ma być usunięte
-				closeEditor();		// closeEditor() sam czyści zmienną selectedToDo
-			}
-			
-			var taskList = document.getElementById("todolist");
-			taskList.innerHTML = "";		// i lista wyczyszczona
-		}
-		
-		// usuwa z listy zadań wszystie zadania
-		function removeTasksLonger() {
-			if (selectedToDo != undefined) {
-				// to znaczy że kliknęliśmy wcześniej na któreś zadanie
-				// i znajduje się ono w edytorze(jego treść konkretnie)
-				// zatem schowajmy edytor bo to zadanie i tak ma być usunięte
-						      // usunęłam closeEditor() 
-			}
-			
-			var taskList = document.getElementById("todolist");
-			var tasks = taskList.getElementsByTagName("li");
-
-			while(tasks.length > 0) {
-				// będziemy tak długo kasować dopóki na liście znajdują się elementy
-				// po każdym usunięciu zadania, lista samoczynnie przelicza ile ma elementów
-				// dla wygody zawsze kasujemy pierwszy element z listy
-				console.log(tasks[0].innerHTML);
-				tasks[0].remove();
-			}
-		}
-        
-        
-        
-        
-        
-		
-	</script>
+    <link rel="stylesheet" href="style.css">
   </head>
   
   <body>
 
-    <h1>My To-do list</h1>
+      <h1>My To-do list</h1>
 
-	<button id="newbtn">New</button><button id="clearbtn">Remove tasks</button><br/>
-	<ul id="todolist">
-		<li data-status="pending">Buy bread</li>
+      <button id="newbtn">New</button><button id="clearbtn">Remove tasks</button><button id="filterbtn">Finished</button><br/>
+	
+      <ul id="todolist" class="all">
+		<li data-status="unfinished">Buy bread</li>
 		<li data-status="finished">Send an invoice</li>
-     </ul>
-	 
-    <div id="editor" class="new" style="visibility: hidden;">
-        <label for="item">What do I need to do?</label>
-        <textarea name="item" id="item" class="alert" placeholder="Write your task here" cols="40" rows="5"></textarea>
+      </ul>
+ 
+      <div id="editor" class="new" style="visibility: hidden;">
+          <label for="item">What do I need to do?</label>
+          <textarea name="item" id="item" class="alert" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
+          <div>
+              <button id="savebtn">Save</button>
+              <button id="cancelbtn" title="Cancel current action and close editor">Cancel</button>
+              <button id="deletebtn" title="Delete selected task">Delete</button><br/>
+              <input type="checkbox" id="finishedBox" /> Finished
+	      </div>
+      </div>
       
-      
-      <div>
-		  <button id="savebtn">Save</button>
-		  <button id="cancelbtn" title="Cancel current action and close editor">Cancel</button>
-		  <button id="deletebtn" title="Delete selected task">Delete</button>
-	  </div>
-    </div>
-      
-
-
-    <!--<script src="main.js"></script>-->  
+      <script src="main.js"></script>
+  
   </body>
 </html>
