@@ -17,7 +17,6 @@ window.onload = function() {
 	// wklejamy listę elementów, jeżeli jest zapamiętana w localStorage
 	if (window.localStorage.getItem("todos") != null) {
         document.getElementById("todolist").innerHTML = window.localStorage.getItem("todos");
-		console.log("Załadowałem jakieś zadania z localStorage");
     }
 }
 		
@@ -148,13 +147,14 @@ function deleteToDo() {
 // usunięcie wszystkich zadań z listy
 function removeTasks() {
     if (selectedToDo != undefined) {
+        closeEditor();
 	}
 			
-        var taskList = document.getElementById("todolist");
-        taskList.innerHTML = "";		// i lista wyczyszczona
+    var taskList = document.getElementById("todolist");
+    taskList.innerHTML = "";		
 			
-			saveToLocalStorage();		// zapamiętaj zmodyfikowaną listę
-		}
+    saveToLocalStorage();		
+}
 		
 		
 // zapamietanie aktualnej listy zadań w localStorage
