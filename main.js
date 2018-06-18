@@ -26,7 +26,7 @@
 		
 		// ustawienie edytora w odpowiednim trybie
 		// new - niewidoczny przycisk Delete
-		// edit - modyfikując treść zadania przycisk Delete niewidoczny
+		// edit - modyfikując treść zadania przycisk Delete widoczny
 		function changeEditorMode(mode) {
 			var editor = document.getElementById("editor");
 			var textArea = document.getElementById("item");
@@ -181,7 +181,7 @@
 			}
 		}
 		
-		// filtrowani listy zadania zakończone/ niezakończone
+		// filtrowanie listy zadań: zakończone/ niezakończone
 		function filterTasks(event) {
 			var taskList = document.getElementById("todolist");
 			
