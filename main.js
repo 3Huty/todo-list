@@ -29,8 +29,8 @@ function changeEditorMode(mode) {
 	var textArea = document.getElementById("item");
 			
 	if (mode == "new") {
-	   editor.className = "new";
-       textArea.value = "";
+        editor.className = "new";
+        textArea.value = "";
     }
     
     if (mode == "edit") {
@@ -44,16 +44,16 @@ function changeEditorMode(mode) {
 		
 // schowanie edytora gdy już nie jest potrzebny
 function closeEditor() {
-    selectedToDo = undefined;							
-			
-	var editor = document.getElementById("editor");
-	editor.style.visibility = "hidden";					
-			
-	changeEditorMode("new");							
-			
-	document.getElementById("newbtn").focus();		
-			
-	document.getElementById("finishedBox").checked = "";
+    selectedToDo = undefined; 
+    
+    var editor = document.getElementById("editor");
+    editor.style.visibility = "hidden";
+    
+    changeEditorMode("new");
+    
+    document.getElementById("newbtn").focus();
+    
+    document.getElementById("finishedBox").checked = "";
 }
 		
 		
@@ -61,11 +61,11 @@ function closeEditor() {
 // podpięcie funkcji do przycisku "New"
 function newToDo() {
     selectedToDo = undefined;
-			
-	document.getElementById("editor").style.visibility = "visible";		
-	changeEditorMode("new");			
-			
-	document.getElementById("finishedBox").checked = "";		
+    
+    document.getElementById("editor").style.visibility = "visible";
+    changeEditorMode("new");
+    
+    document.getElementById("finishedBox").checked = "";		
 }
 		
 		
@@ -86,7 +86,7 @@ function loadToDo(event) {
 	if (selectedToDo.dataset.status == "finished") {
         document.getElementById("finishedBox").checked = "checked";
     } else {
-		document.getElementById("finishedBox").checked = "";
+        document.getElementById("finishedBox").checked = "";
     }
 }
 		
@@ -96,18 +96,18 @@ function saveToDo() {
 			
     if (textArea.value.length == 0) {
         var alert = document.getElementById("editor");
-        alert.className = "alert"; 
-		return;
+        alert.className = "alert";
+        return;
     }
 			
     if (selectedToDo == undefined) {
-		var newTODO = document.createElement("li");
-		newTODO.innerHTML = textArea.value;
+        var newTODO = document.createElement("li");
+        newTODO.innerHTML = textArea.value;
 				
         if (document.getElementById("finishedBox").checked) {
-		  newTODO.dataset.status = "finished";			
+            newTODO.dataset.status = "finished";
         } else {
-          newTODO.dataset.status = "unfinished";			
+            newTODO.dataset.status = "unfinished";
         }
 				
         var todos = document.getElementById("todolist");
@@ -148,7 +148,7 @@ function deleteToDo() {
 function removeTasks() {
     if (selectedToDo != undefined) {
         closeEditor();
-	}
+    }
 			
     var taskList = document.getElementById("todolist");
     taskList.innerHTML = "";		
@@ -160,10 +160,10 @@ function removeTasks() {
 // zapamietanie aktualnej listy zadań w localStorage
 function saveToLocalStorage() {
     var taskList = document.getElementById("todolist");
-			
-	if (taskList.children.length == 0) {
-	   window.localStorage.removeItem("todos");
-       console.log("Nie ma zadnych zadań do zapisania");
+    
+    if (taskList.children.length == 0) {
+        window.localStorage.removeItem("todos");
+        console.log("Nie ma zadnych zadań do zapisania");
     } else {
         window.localStorage.setItem(
         "todos",
@@ -177,12 +177,12 @@ function saveToLocalStorage() {
 // filtrowanie listy zadań: zakończone/ niezakończone
 function filterTasks(event) {
     var taskList = document.getElementById("todolist");
-			
+    
     if (taskList.className == "all") {
         taskList.className = "finished";
         event.target.innerHTML = "Show all";
-	} else {
+    } else {
         taskList.className = "all";
         event.target.innerHTML = "Show finished";
-	}
+    }
 }
