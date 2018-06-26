@@ -3,9 +3,6 @@ var selectedToDo;
 		
 		
 window.onload = function() {
-    console.log("Wiem ze strona zaladowala sie");
-    console.log("selectedToDo: " + selectedToDo);
-    
     document.getElementById("todolist").onclick = loadToDo;
     document.getElementById("newbtn").onclick = newToDo;
 	document.getElementById("savebtn").onclick = saveToDo;
@@ -18,9 +15,7 @@ window.onload = function() {
 	if (window.localStorage.getItem("todos") != null) {
         document.getElementById("todolist").innerHTML = window.localStorage.getItem("todos");
     }
-}
-		
-		
+}		
 		
 // ustawienie edytora w odpowiednim trybie
 // new - niewidoczny przycisk Delete; edit - modyfikując treść zadania przycisk Delete widoczny
@@ -40,41 +35,29 @@ function changeEditorMode(mode) {
     textArea.focus();									
 }
 		
-		
-		
 // schowanie edytora gdy już nie jest potrzebny
 function closeEditor() {
     selectedToDo = undefined; 
     
     var editor = document.getElementById("editor");
     editor.style.visibility = "hidden";
-    
     changeEditorMode("new");
     
     document.getElementById("newbtn").focus();
-    
     document.getElementById("finishedBox").checked = "";
 }
-		
-		
-		
+			
 // podpięcie funkcji do przycisku "New"
 function newToDo() {
     selectedToDo = undefined;
     
     document.getElementById("editor").style.visibility = "visible";
     changeEditorMode("new");
-    
     document.getElementById("finishedBox").checked = "";		
 }
 		
-		
 // sprawdzamy, który element listy jest kliknięty, żeby pobrać jego treść
 function loadToDo(event) {
-	console.log("kliknieto w liste");
-	console.log("event.target: " + event.target.tagName);
-	console.log("event.target.value: " + event.target.innerHTML);
-			
 	document.getElementById("editor").style.visibility = "visible";		
 			
 	changeEditorMode("edit");											
@@ -89,7 +72,6 @@ function loadToDo(event) {
         document.getElementById("finishedBox").checked = "";
     }
 }
-		
 		
 function saveToDo() {
     var textArea = document.querySelector("#item");
@@ -111,13 +93,11 @@ function saveToDo() {
         }
 				
         var todos = document.getElementById("todolist");
-        todos.appendChild(newTODO);
-				
+        todos.appendChild(newTODO);	
 				    
         changeEditorMode("new");
     } else {
-        selectedToDo.innerHTML = textArea.value;
-				
+        selectedToDo.innerHTML = textArea.value;	
 				
         if (document.getElementById("finishedBox").checked) {
           selectedToDo.dataset.status = "finished";			
@@ -129,20 +109,15 @@ function saveToDo() {
 				
         changeEditorMode("new");					
     }
-			
-        saveToLocalStorage();
+	    saveToLocalStorage();
 }
-		
-		
-		
 		
 // usunięcie zadania z listy
 function deleteToDo() {
     selectedToDo.remove();		
 			
     saveToLocalStorage();		
-}
-		
+}	
 						
 // usunięcie wszystkich zadań z listy
 function removeTasks() {
@@ -156,11 +131,9 @@ function removeTasks() {
     saveToLocalStorage();		
 }
 		
-		
 // zapamietanie aktualnej listy zadań w localStorage
 function saveToLocalStorage() {
     var taskList = document.getElementById("todolist");
-    
     if (taskList.children.length == 0) {
         window.localStorage.removeItem("todos");
         console.log("Nie ma zadnych zadań do zapisania");
@@ -169,15 +142,12 @@ function saveToLocalStorage() {
         "todos",
         taskList.innerHTML
         );
-				
-        console.log("Były jakieś zadania do zapisania");
     }
 }
 		
 // filtrowanie listy zadań: zakończone/ niezakończone
 function filterTasks(event) {
     var taskList = document.getElementById("todolist");
-    
     if (taskList.className == "all") {
         taskList.className = "finished";
         event.target.innerHTML = "Show all";
