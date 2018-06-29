@@ -42,7 +42,6 @@ function closeEditor() {
     document.getElementById("newbtn").focus();
     document.getElementById("finishedBox").checked = "";
 	
-	// upewniamy się że jest schowany
 	document.getElementById("alertbox").style.visibility = "hidden";
 }
 			
@@ -76,7 +75,6 @@ function saveToDo() {
     var textArea = document.querySelector("#item");
 			
     if (textArea.value.length == 0) {
-		// trzeba pokazać komunikat o błedzie że mamy pusty opis zadania
         var alert = document.getElementById("alertbox");
         alert.style.visibility = "visible";
         return;
