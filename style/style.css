@@ -34,8 +34,13 @@ li button {
     visibility: visible;
 }
 
-#editor.alert {
+#alertbox {
     color: red;
+	border: solid 2px red;
+	
+	padding: 1em 3m 1em 4em;
+	
+	visibility: hidden;
 }
 		
 #todolist li[data-status="finished"] {
@@ -53,18 +58,36 @@ li button {
     display: none;
 }
 
+#listcontainer {
+	float: left;
+}
 #listcontainer.emptylist {
     background: url(../images/icon.jpg) no-repeat;
     background-position: 2rem;
-    height: 100px;
-    width: 22%;
-    box-sizing: border-box;
-    margin-right: 0;
-    visibility: hidden;
-    }
+}
 
 #todolist {
     position: relative;
     height: 200px;
     visibility: visible;
+}
+
+#editor > h2 {
+	border-bottom: solid 1px gray;
+}
+
+#editor.new h2.labelnew {
+	display: block;
+}
+
+#editor.new h2.labeledit {
+	display: none;
+}
+
+#editor.edit h2.labelnew {
+	display: none;
+}
+
+#editor.edit h2.labeledit {
+	display: block;
 }

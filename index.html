@@ -12,13 +12,15 @@
 
       <button id="newbtn">New</button><button id="clearbtn">Remove tasks</button><button id="filterbtn">Finished</button><br/>
 	
-      <div id="listcontainer" class="emptylist">
+      <div id="listcontainer">
         <ul id="todolist" class="all">
           <li data-status="unfinished">Buy bread</li>
           <li data-status="finished">Send an invoice</li>
         </ul>
       </div>
       <div id="editor" class="new" style="visibility: hidden;">
+			<h2 class="labelnew">New task</h2>
+			<h2 class="labeledit">Modify task</h2>
           <label for="item">What do I need to do?</label>
           <textarea name="item" id="item" class="alert" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
           <div>
@@ -28,6 +30,7 @@
               <input type="checkbox" id="finishedBox"> 
               <label for="finishedBox">Finished</label>
           </div>
+		  <div id="alertbox">Task description can not be empty</div>
       </div>
       
       <script src="main/main.js"></script>

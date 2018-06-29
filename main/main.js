@@ -41,6 +41,9 @@ function closeEditor() {
     
     document.getElementById("newbtn").focus();
     document.getElementById("finishedBox").checked = "";
+	
+	// upewniamy się że jest schowany
+	document.getElementById("alertbox").style.visibility = "hidden";
 }
 			
 // podpięcie funkcji do przycisku "New"
@@ -73,10 +76,15 @@ function saveToDo() {
     var textArea = document.querySelector("#item");
 			
     if (textArea.value.length == 0) {
-        var alert = document.getElementById("editor");
-        alert.className = "alert";
+		// trzeba pokazać komunikat o błedzie że mamy pusty opis zadania
+        var alert = document.getElementById("alertbox");
+        alert.style.visibility = "visible";
         return;
-    }	
+    } else {
+		var alert = document.getElementById("alertbox");
+        alert.style.visibility = "hidden";
+	}
+	
     if (selectedToDo == undefined) {
         var newTODO = document.createElement("li");
         newTODO.innerHTML = textArea.value;
@@ -89,10 +97,7 @@ function saveToDo() {
 				
         var todos = document.getElementById("todolist");
         todos.appendChild(newTODO);	
-        
-        document.getElementById("listcontainer").style.visibility = "hidden";
-        console.log("Oto nowe zadania");
-				    
+
         changeEditorMode("new");
     } else {
         selectedToDo.innerHTML = textArea.value;	
@@ -107,23 +112,19 @@ function saveToDo() {
 				
         changeEditorMode("new");					
     }
-	    saveToLocalStorage();
+	
+	closeEditor();
+	
+	saveToLocalStorage();
 }
 		
 // usunięcie zadania z listy
-function deleteToDo() {                        
-    var taskList = document.getElementById("todolist");
-    var tasks = taskList.getElementsByTagName("li");
-
-    while(tasks.length > 0) {
-        console.log(tasks[0].innerHTML);
-        tasks[0].remove();
-       
-    document.getElementById("listcontainer").style.visibility = "visible";
-    console.log("Jakieś zadania na dziś i jutro?");
+function deleteToDo() {
+	selectedToDo.remove();		
 			
-    saveToLocalStorage();		
-}
+	closeEditor();
+			
+	saveToLocalStorage();		
 }
 						
 // usunięcie wszystkich zadań z listy
@@ -131,12 +132,9 @@ function removeTasks() {
     if (selectedToDo != undefined) {
         closeEditor();
     }
-    var container = document.getElementById("listcontainer");
+
     var taskList = document.getElementById("todolist");
     taskList.innerHTML = "";
-    container.className = "emptylist";
-    document.getElementById("listcontainer").style.visibility = "visible";
-    console.log("Jakieś zadania na dzisiaj?");
 			
     saveToLocalStorage();		
 }
@@ -147,11 +145,15 @@ function saveToLocalStorage() {
     if (taskList.children.length == 0) {
         window.localStorage.removeItem("todos");
         console.log("Nie ma zadnych zadań do zapisania");
+		
+		document.getElementById("listcontainer").className = "emptylist";
     } else {
         window.localStorage.setItem(
-        "todos",
-        taskList.innerHTML
+			"todos",
+			taskList.innerHTML
         );
+        document.getElementById("listcontainer").className = "";
+		console.log("Jakieś zadania na dzisiaj?");
     }
 }
 		
