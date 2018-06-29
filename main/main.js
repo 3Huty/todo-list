@@ -1,6 +1,4 @@
- 
-var selectedToDo;
-		
+ var selectedToDo;		
 		
 window.onload = function() {
     document.getElementById("todolist").onclick = loadToDo;
@@ -26,12 +24,10 @@ function changeEditorMode(mode) {
 	if (mode == "new") {
         editor.className = "new";
         textArea.value = "";
-    }
-    
-    if (mode == "edit") {
+    } else {
         editor.className = "edit";
     }
-			
+    
     textArea.focus();									
 }
 		
@@ -72,7 +68,7 @@ function loadToDo(event) {
         document.getElementById("finishedBox").checked = "";
     }
 }
-		
+	
 function saveToDo() {
     var textArea = document.querySelector("#item");
 			
@@ -80,8 +76,7 @@ function saveToDo() {
         var alert = document.getElementById("editor");
         alert.className = "alert";
         return;
-    }
-			
+    }	
     if (selectedToDo == undefined) {
         var newTODO = document.createElement("li");
         newTODO.innerHTML = textArea.value;
@@ -94,6 +89,9 @@ function saveToDo() {
 				
         var todos = document.getElementById("todolist");
         todos.appendChild(newTODO);	
+        
+        document.getElementById("listcontainer").style.visibility = "hidden";
+        console.log("Oto nowe zadania");
 				    
         changeEditorMode("new");
     } else {
@@ -113,20 +111,32 @@ function saveToDo() {
 }
 		
 // usunięcie zadania z listy
-function deleteToDo() {
-    selectedToDo.remove();		
+function deleteToDo() {                        
+    var taskList = document.getElementById("todolist");
+    var tasks = taskList.getElementsByTagName("li");
+
+    while(tasks.length > 0) {
+        console.log(tasks[0].innerHTML);
+        tasks[0].remove();
+       
+    document.getElementById("listcontainer").style.visibility = "visible";
+    console.log("Jakieś zadania na dziś i jutro?");
 			
     saveToLocalStorage();		
-}	
+}
+}
 						
 // usunięcie wszystkich zadań z listy
 function removeTasks() {
     if (selectedToDo != undefined) {
         closeEditor();
     }
-			
+    var container = document.getElementById("listcontainer");
     var taskList = document.getElementById("todolist");
-    taskList.innerHTML = "";		
+    taskList.innerHTML = "";
+    container.className = "emptylist";
+    document.getElementById("listcontainer").style.visibility = "visible";
+    console.log("Jakieś zadania na dzisiaj?");
 			
     saveToLocalStorage();		
 }

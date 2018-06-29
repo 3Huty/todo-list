@@ -12,11 +12,12 @@
 
       <button id="newbtn">New</button><button id="clearbtn">Remove tasks</button><button id="filterbtn">Finished</button><br/>
 	
-      <ul id="todolist" class="all">
+      <div id="listcontainer" class="emptylist">
+        <ul id="todolist" class="all">
           <li data-status="unfinished">Buy bread</li>
           <li data-status="finished">Send an invoice</li>
-      </ul>
- 
+        </ul>
+      </div>
       <div id="editor" class="new" style="visibility: hidden;">
           <label for="item">What do I need to do?</label>
           <textarea name="item" id="item" class="alert" placeholder="Write what you need to do" cols="40" rows="5"></textarea>
@@ -33,3 +34,4 @@
   
   </body>
 </html>
+
