@@ -141,9 +141,7 @@ function removeTasks() {
 function saveToLocalStorage() {
     var taskList = document.getElementById("todolist");
     if (taskList.children.length == 0) {
-        window.localStorage.removeItem("todos");
-        console.log("Nie ma zadnych zadań do zapisania");
-		
+        window.localStorage.removeItem("todos");	
 		document.getElementById("listcontainer").className = "emptylist";
     } else {
         window.localStorage.setItem(
@@ -151,7 +149,6 @@ function saveToLocalStorage() {
 			taskList.innerHTML
         );
         document.getElementById("listcontainer").className = "";
-		console.log("Jakieś zadania na dzisiaj?");
     }
 }
 		
