@@ -141,8 +141,8 @@ function saveToLocalStorage() {
 		document.getElementById("listcontainer").className = "emptylist";
     } else {
         window.localStorage.setItem(
-			"todos",
-			taskList.innerHTML
+            "todos",
+            taskList.innerHTML
         );
         document.getElementById("listcontainer").className = "";
     }
