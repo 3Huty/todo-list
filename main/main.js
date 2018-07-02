@@ -1,4 +1,4 @@
- var selectedToDo;		
+var selectedToDo;		
 		
 window.onload = function() {
     document.getElementById("todolist").onclick = loadToDo;
@@ -56,8 +56,7 @@ function newToDo() {
 		
 // sprawdzamy, który element listy jest kliknięty, żeby pobrać jego treść
 function loadToDo(event) {
-	document.getElementById("editor").style.visibility = "visible";		
-			
+	document.getElementById("editor").style.visibility = "visible";			
 	changeEditorMode("edit");											
 			
 	document.getElementById("item").value = event.target.innerHTML;
@@ -104,13 +103,11 @@ function saveToDo() {
           selectedToDo.dataset.status = "finished";			
         } else {
           selectedToDo.dataset.status = "unfinished";			
-        }
-				
+        }	
         selectedToDo = undefined;					
 				
         changeEditorMode("new");					
     }
-	
 	closeEditor();
 	
 	saveToLocalStorage();
@@ -130,13 +127,12 @@ function removeTasks() {
     if (selectedToDo != undefined) {
         closeEditor();
     }
-
     var taskList = document.getElementById("todolist");
     taskList.innerHTML = "";
 			
     saveToLocalStorage();		
 }
-		
+
 // zapamietanie aktualnej listy zadań w localStorage
 function saveToLocalStorage() {
     var taskList = document.getElementById("todolist");
